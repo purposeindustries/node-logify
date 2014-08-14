@@ -1,0 +1,28 @@
+{
+  "name": "logify",
+  "version": "0.1.0",
+  "description": "Logify, a logging framework",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/purposeindustries/node-logify"
+  },
+  "keywords": [
+    "logger",
+    "logify"
+  ],
+  "author": "Purpose Industries <dev@purposeindustries.co> (http://purposeindustries.co)",
+  "contributors": [
+    "Bence Dányi <bd@purposeindustries.co>"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/purposeindustries/node-logify/issues"
+  },
+  "homepage": "https://github.com/purposeindustries/node-logify",
+  "dependencies": {
+    "extend-object": "^1.0.0",
+    "logify-console-transport": "^0.1.0",
+    "logify-syslog-levels": "^1.0.0"
+  }
+}
