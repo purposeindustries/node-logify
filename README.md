@@ -1,4 +1,4 @@
-# logify
+# logify [![Build Status](https://travis-ci.org/purposeindustries/node-logify.svg)](https://travis-ci.org/purposeindustries/node-logify)
 
 Logging library for node.
 
