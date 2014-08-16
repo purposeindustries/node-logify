@@ -95,6 +95,26 @@ Logger.prototype._log = function _log(level, err, meta, msg, args) {
   this.transports.forEach(dispatchMessage.bind(this, message));
 };
 
+Logger.prototype.log = function log(level) {
+  if (!this.hasLevel(level)) {
+    throw new Error('Loglevel ' + level + ' not found!');
+  }
+  this[level].apply(
+    this,
+    [].slice.call(arguments, 1)
+  );
+};
+
+Logger.prototype.hasLevel = function hasLevel(name) {
+  for (var i = 0; i < this.levels.length; i++) {
+    var level = this.levels[i];
+    if (level.name == name) {
+      return true;
+    }
+  }
+  return false;
+};
+
 Logger.prototype._serializeContext = function _serializeContext(context) {
   return Object.keys(context).reduce(function(serialized, key) {
     var val = context[key];
