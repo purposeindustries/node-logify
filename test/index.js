@@ -26,4 +26,34 @@ describe('Logger', function() {
       mock.verify();
     });
   });
+  describe('.hasLevel', function() {
+    it('should return true for existing loglevels', function() {
+      var l = logify();
+      [
+        'debug',
+        'info',
+        'notice',
+        'warning',
+        'error',
+        'crit',
+        'alert',
+        'emerg'
+      ].forEach(function(level) {
+        l.hasLevel(level).should.be.true;
+      });
+    });
+    it('should return false of unknown loglevels', function() {
+      var l = logify();
+      l.hasLevel('foo').should.be.false;
+    });
+    it('should handle custom loglevels', function() {
+      var l = logify({
+        levels: [{
+          name: 'foo',
+        }]
+      });
+      l.hasLevel('foo').should.be.true;
+      l.hasLevel('info').should.be.false;
+    });
+  });
 });
