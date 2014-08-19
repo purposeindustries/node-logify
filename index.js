@@ -54,6 +54,8 @@ function Logger(opts) {
     defaultTransport(),
   ];
 
+  this.silent = opts.silent;
+
   this.levels = opts.levels || defaultLevels;
   this.levels.forEach(setupLevel, this);
 }
@@ -82,6 +84,10 @@ Logger.prototype.add = function add(transport) {
 };
 
 Logger.prototype._log = function _log(level, err, meta, msg, args) {
+  if (this.silent) {
+    return;
+  }
+
   var message = {
     level: level,
     err: err,
