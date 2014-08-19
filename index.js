@@ -34,7 +34,7 @@ function setupLevel(level) {
 }
 
 function dispatchMessage(message, transport) {
-  if (transport.level < message.level.code) {
+  if (transport.silent || transport.level < message.level.code) {
     return;
   }
   transport.log(message, this);
