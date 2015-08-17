@@ -1,0 +1,21 @@
+{
+  "name": "logify",
+  "version": "0.2.0",
+  "description": "Logging framework for node and the browser",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/purposeindustries/node-logify.git"
+  },
+  "keywords": [
+    "logger",
+    "log",
+    "logify"
+  ],
+  "author": "Bence Dányi <bence@danyi.me>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/purposeindustries/node-logify/issues"
+  },
+  "homepage": "https://github.com/purposeindustries/node-logify#readme"
+}
