@@ -57,19 +57,26 @@ const facebookAuthLogger = authLogger.component('facebook');
 // { component: 'auth.facebook' }
 ```
 
-### `logger.append(appender)`
+### `logger.add(transport)`
 
-Forward log entries to `appender`.
+Forward log entries to `transport`.
 
-## Appenders
+## Transports
 
-### `stream(s, layout)`
+### `stream(s, [formatter])`
 
-Write log events to `s` with the given `layout`.
+Write log events to `s` with the given `formatter`.
+The default formatter is `jsonLine`.
 
-### `udp(socket, port, address, layout)`
+### `udp(socket, port, address, [formatter])`
 
-Write log event to `socket`, send to `address:port` with the given `layout`.
+Write log event to `socket`, send to `address:port` with the given `formatter`.
+The default formatter is `jsonLine`
+
+### `console([formatter])`
+
+Write log events to `process.stdout` or `process.stderr` with the given `formatter`
+(defaults to `console` formatter). Output stream is based on the severity.
 
 ## Filters
 
@@ -81,12 +88,16 @@ Forward log messages to `appenders`, based on the truthiness of `fn(message)`.
 
 Forward log messages to `appenders`, based on pattern matching on the `field` field.
 
-### `throttle(n, ...appenders)`
+## Formatters
 
-Forward log messages to `appenders`, but only allow 1 message in every `n` seconds.
+### `json`
 
-## Layouts
-
-### `json'`
+Stringified JSON output.
 
 ### `jsonLine`
+
+Newline-delimited stringified JSON output.
+
+### `console`
+
+Pretty, human-readable format, with colors if possible.

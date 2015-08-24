@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/purposeindustries/node-logify/issues"
   },
-  "homepage": "https://github.com/purposeindustries/node-logify#readme"
+  "homepage": "https://github.com/purposeindustries/node-logify#readme",
+  "dependencies": {
+    "chalk": "^1.1.0"
+  }
 }

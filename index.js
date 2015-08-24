@@ -1,4 +1,5 @@
 import { format } from 'util';
+import os from 'os';
 
 function extend(target, ...srcs) {
   for (const src of srcs) {
@@ -36,6 +37,7 @@ function makeLogger(level) {
       context.message = format(message, ...args);
     }
     context.level = level;
+    context.time = context.time || new Date();
 
     return this.log(extend({}, this.context, context));
   };
@@ -45,38 +47,70 @@ class Logger {
   constructor(context = {}, parent) {
     this.context = context;
     this.parent = parent;
-    this.transformers = [];
-    this.appenders = [];
+    this.serializers = [];
+    this.transports = [];
+    context.pid = process.pid;
+    context.hostname = os.hostname();
+    context.arch = process.arch;
+    context.platform = process.platform;
+
+    this.transform('error', function (err) {
+      return {
+        message: err.message,
+        statusCode: err.statusCode,
+        body: err.body,
+        stack: err.stack,
+        code: err.code,
+        signal: err.signal,
+        name: err.name,
+      };
+    });
+
+    this.transform('req', function (req) {
+      return {
+        method: req.method,
+        url: req.url,
+        headers: req.headers,
+        ip: req.connection.remoteAddress,
+      };
+    });
+
+    this.transform('res', function (res) {
+      return {
+        statusCode: res.statusCode,
+        header: res._header
+      };
+    });
   }
 
-  transformed(entry) {
+  serialize(entry) {
     if (this.parent) {
-      entry = this.parent.transformed(entry);
+      entry = this.parent.serialize(entry);
     }
-    for (const transformer of this.transformers) {
-      entry = transformer(entry);
+    for (const serializer of this.serializers) {
+      entry = serializer(entry);
     }
     return entry;
   }
 
   log(entry) {
-    entry = this.transformed(entry);
-    for (const appender of this.appenders) {
-      appender(entry);
+    entry = this.serialize(entry);
+    for (const transport of this.transports) {
+      transport(entry);
     }
   }
 
   transform(field, fn, always) {
     if (typeof field === 'function') {
-      this.transformers.push(field);
+      this.serializers.push(field);
       return this;
     } else if (always) {
-      this.transformers.push(function (entry) {
+      this.serializers.push(function (entry) {
         entry[field] = fn(entry[field]);
         return entry;
       });
     } else {
-      this.transformers.push(function (entry) {
+      this.serializers.push(function (entry) {
         if (entry[field]) {
           entry[field] = fn(entry[field]);
         }
@@ -86,8 +120,8 @@ class Logger {
     return this;
   }
 
-  append(appender) {
-    this.appenders.push(appender);
+  add(transport) {
+    this.transports.push(transport);
     return this;
   }
 
