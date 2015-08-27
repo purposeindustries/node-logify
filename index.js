@@ -1,5 +1,8 @@
 import { format } from 'util';
 import os from 'os';
+import error from './serializer/error';
+import req from './serializer/req';
+import res from './serializer/res';
 
 function extend(target, ...srcs) {
   for (const src of srcs) {
@@ -54,33 +57,10 @@ class Logger {
     context.arch = process.arch;
     context.platform = process.platform;
 
-    this.transform('error', function (err) {
-      return {
-        message: err.message,
-        statusCode: err.statusCode,
-        body: err.body,
-        stack: err.stack,
-        code: err.code,
-        signal: err.signal,
-        name: err.name,
-      };
-    });
-
-    this.transform('req', function (req) {
-      return {
-        method: req.method,
-        url: req.url,
-        headers: req.headers,
-        ip: req.connection.remoteAddress,
-      };
-    });
-
-    this.transform('res', function (res) {
-      return {
-        statusCode: res.statusCode,
-        header: res._header
-      };
-    });
+    this
+      .transform(error)
+      .transform(req)
+      .transform(res);
   }
 
   serialize(entry) {
