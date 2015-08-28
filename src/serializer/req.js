@@ -5,11 +5,11 @@ export default function (entry) {
 
   const req = entry.req;
   entry.req = {
-    requestId: entry.context.requestId,
+    requestId: entry.context && entry.context.requestId,
     method: req.method,
     url: req.url,
     headers: req.headers,
-    ip: req.connection.remoteAddress,
+    ip: req.connection && req.connection.remoteAddress,
   };
   return entry;
 }

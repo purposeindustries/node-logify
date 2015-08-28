@@ -51,7 +51,7 @@ class Logger {
     this.context = context;
     this.parent = parent;
     this.serializers = [];
-    this.transports = [];
+    this.transports = parent ? parent.transports : [];
     context.pid = process.pid;
     context.hostname = os.hostname();
     context.arch = process.arch;
@@ -111,13 +111,14 @@ class Logger {
   }
 
   component(name) {
-    return new Logger({}, this.context, {
+    return this.child({
       component: this.context.component ? (this.context.component + '.' + name) : name
     });
   }
 }
 
 [
+  'trace',
   'debug',
   'info',
   'notice',

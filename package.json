@@ -1,8 +1,14 @@
 {
   "name": "logify",
-  "version": "0.2.0",
+  "version": "0.2.0-rc.1.7",
   "description": "Logging framework for node and the browser",
-  "main": "index.js",
+  "main": "dist",
+  "scripts": {
+    "prepublish": "babel src -d dist"
+  },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/purposeindustries/node-logify.git"
@@ -20,5 +26,8 @@
   "homepage": "https://github.com/purposeindustries/node-logify#readme",
   "dependencies": {
     "chalk": "^1.1.0"
+  },
+  "devDependencies": {
+    "babel": "^5.8.23"
   }
 }
