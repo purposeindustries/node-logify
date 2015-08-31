@@ -5,7 +5,7 @@
   "main": "dist",
   "scripts": {
     "prepublish": "babel src -d dist",
-    "test": "NODE_ENV=test mocha --require should --require co-mocha --compilers js:babel/register 'src/**/*.spec.js'"
+    "test": "NODE_ENV=test mocha --require co-mocha --compilers js:babel/register 'src/**/*.spec.js'"
   },
   "files": [
     "dist"
