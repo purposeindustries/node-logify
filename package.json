@@ -1,6 +1,6 @@
 {
   "name": "logify",
-  "version": "0.2.0-rc.2.0",
+  "version": "0.2.0-rc.3.0",
   "description": "Logging framework for node and the browser",
   "main": "dist",
   "scripts": {
