@@ -1,6 +1,6 @@
 {
   "name": "logify",
-  "version": "0.2.0-rc.1.7",
+  "version": "0.2.0-rc.2.0",
   "description": "Logging framework for node and the browser",
   "main": "dist",
   "scripts": {
@@ -31,7 +31,6 @@
   "devDependencies": {
     "babel": "^5.8.23",
     "co-mocha": "^1.1.2",
-    "mocha": "^2.3.0",
-    "should": "^7.1.0"
+    "mocha": "^2.3.0"
   }
 }
