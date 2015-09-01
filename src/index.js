@@ -3,15 +3,7 @@ import os from 'os';
 import error from './serializer/error';
 import req from './serializer/req';
 import res from './serializer/res';
-
-function extend(target, ...srcs) {
-  for (const src of srcs) {
-    for (const key in src) {
-      target[key] = src[key];
-    }
-  }
-  return target;
-}
+import extend from './lib/extend';
 
 function makeLogger(level) {
   return function log(context, message, ...args) {
