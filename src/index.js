@@ -57,10 +57,12 @@ class Logger {
     context.arch = process.arch;
     context.platform = process.platform;
 
-    this
-      .transform(error)
-      .transform(req)
-      .transform(res);
+    if (!this.parent) {
+      this
+        .transform(error)
+        .transform(req)
+        .transform(res);
+    }
   }
 
   serialize(entry) {
