@@ -109,6 +109,10 @@ class Logger {
       component: this.context.component ? (this.context.component + '.' + name) : name
     });
   }
+
+  use(plugin) {
+    return plugin(this);
+  }
 }
 
 [
