@@ -1,6 +1,6 @@
 {
   "name": "logify",
-  "version": "0.2.0-rc.6.0",
+  "version": "0.2.0-rc.7.0",
   "description": "Logging framework for node and the browser",
   "main": "dist",
   "scripts": {
@@ -26,7 +26,8 @@
   },
   "homepage": "https://github.com/purposeindustries/node-logify#readme",
   "dependencies": {
-    "chalk": "^1.1.0"
+    "chalk": "^1.1.0",
+    "reconnect-net": "0.0.0"
   },
   "devDependencies": {
     "babel": "^5.8.23",

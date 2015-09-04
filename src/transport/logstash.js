@@ -1,8 +1,6 @@
 import udp from './udp';
+import tcp from './tcp';
 import json from '../formatter/json';
-import dgram from 'dgram';
-import net from 'net';
-import stream from './stream';
 
 function id(x) {
   return x;
@@ -22,11 +20,18 @@ export default function create(opts = {}) {
   opts.formatter = opts.formatter || json;
 
   if (opts.type === 'udp') {
-    const socket = dgram.createSocket('udp4');
-    return udp(socket, opts.port, opts.host, compose(opts.formatter, opts.transform));
+    return udp({
+      host: opts.host,
+      port: opts.port,
+      type: 'udp4',
+      formatter: compose(opts.formatter, opts.transform),
+    });
   } else if (opts.type === 'tcp') {
-    const socket = net.connect(opts.port, opts.host);
-    return stream(socket, compose(opts.formatter, opts.transform));
+    return tcp({
+      host: opts.host,
+      port: opts.port,
+      formatter: compose(opts.formatter, opts.transform),
+    });
   }
 
   throw new Error(`Transport type ${opts.type} not implemented!`);
