@@ -1,3 +1,6 @@
+import extend from './extend';
+import { format } from 'util';
+
 export default function makeLogger(level) {
   return function log(context, message, ...args) {
     // no context given

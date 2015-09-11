@@ -1,10 +1,10 @@
 {
   "name": "logify",
-  "version": "0.2.0-rc.7.0",
+  "version": "0.2.0-rc.7.6",
   "description": "Logging framework for node and the browser",
   "main": "dist",
   "scripts": {
-    "prepublish": "babel src -d dist",
+    "prepublish": "babel src -d dist --optional runtime",
     "test": "NODE_ENV=test mocha --require co-mocha --compilers js:babel/register 'src/**/*.spec.js'"
   },
   "files": [
@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/purposeindustries/node-logify#readme",
   "dependencies": {
+    "babel-runtime": "^5.8.20",
     "chalk": "^1.1.0",
     "reconnect-net": "0.0.0"
   },
