@@ -1,5 +1,6 @@
 import extend from './extend';
 import { format } from 'util';
+import os from 'os';
 
 export default function makeLogger(level) {
   return function log(context, message, ...args) {
@@ -29,6 +30,14 @@ export default function makeLogger(level) {
     }
     context.level = level;
     context.time = context.time || new Date();
+    context.system = {
+      memory: {
+        process: process.memoryUsage(),
+        total: os.totalmem(),
+        free: os.freemem(),
+      },
+      load: os.loadavg(),
+    };
 
     return this.log(extend({}, this.context, context));
   };
