@@ -13,10 +13,6 @@ class Logger {
     this.parent = parent;
     this.serializers = [];
     this.transports = parent ? parent.transports : [];
-    context.pid = process.pid;
-    context.hostname = os.hostname();
-    context.arch = process.arch;
-    context.platform = process.platform;
 
     if (!this.parent) {
       this
