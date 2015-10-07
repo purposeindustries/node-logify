@@ -7,17 +7,21 @@ export default function create(opts = {}) {
   opts.formatter = opts.formatter || json;
   let socket;
 
-  const emitter = reconnect(sock => {
-    socket = sock
-    socket.on('error', err => console.error(err));
+  reconnect(sock => {
+    socket = sock;
   }).connect(opts.port, opts.host);
-
-  emitter.on('error', err => console.error(err));
 
   return function write(entry) {
     if (!socket) {
-      return;
+      return Promise.reject(new Error('Socket not available!'));
     }
-    socket.write(opts.formatter(entry), err => console.error(err));
+    return new Promise((resolve, reject) => {
+      socket.write(opts.formatter(entry), err => {
+        if (err) {
+          return reject(err);
+        }
+        return resolve();
+      });
+    });
   };
 }

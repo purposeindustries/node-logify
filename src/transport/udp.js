@@ -11,6 +11,13 @@ export default function create(opts = {}) {
 
   return function log(entry) {
     const message = opts.layout(entry);
-    return socket.send(message, 0, message.length, opts.port, opts.host);
+    return new Promise((resolve, reject) => {
+      socket.send(message, 0, message.length, opts.port, opts.host, err => {
+        if (err) {
+          return reject(err);
+        }
+        resolve();
+      });
+    });
   };
 }

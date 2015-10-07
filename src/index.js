@@ -38,9 +38,7 @@ class Logger {
 
   log(entry) {
     entry = this.serialize(entry);
-    for (const transport of this.transports) {
-      transport(entry);
-    }
+    return Promise.all(this.transports.map(transport => transport(entry)));
   }
 
   transform(field, fn, always) {
